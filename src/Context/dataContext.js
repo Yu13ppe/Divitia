@@ -11,7 +11,7 @@ export function DataContextProvider(props) {
     const value = {
         logged, setLogged,
         infoTkn, setInfoTkn,
-        // url
+        url
     };
 
     return (
