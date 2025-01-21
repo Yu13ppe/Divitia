@@ -1,4 +1,3 @@
-// filepath: /C:/xampp/htdocs/React/divitia/src/Context/dataContext.js
 import { createContext, useContext } from "react";
 import { useLocalStorage } from "../Hooks/useLocalStorage";
 

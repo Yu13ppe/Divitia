@@ -15,16 +15,15 @@ function App() {
         <Route
           path="/"
           render={({ location }) => {
-            const isLoginRoute = location.pathname === "/Login" || location.pathname === "/Register" || location.pathname === "/Dashboard" || location.pathname === "/Admec";
+     //       const isLoginRoute = location.pathname === "/Login" || location.pathname === "/Register" || location.pathname === "/Dashboard" || location.pathname === "/Admec";
             return (
               <>
-                {!isLoginRoute && <NavBar />}
                 <Switch>
                   {routes.map((route) => (
                     <Route key={route.path} path={route.path} component={route.component} />
                   ))}
                 </Switch>
-                {!isLoginRoute && <Footer />}
+         
               </>
             );
           }}

@@ -3,15 +3,29 @@ import axios from "axios";
 import { useDataContext } from "../Context/dataContext";
 import { clearLocalStorage } from "../Hooks/useLocalStorage";
 import { toast, ToastContainer } from "react-toastify";
-import {
-  FaExclamationCircle, FaInfoCircle, FaWhatsapp
-} from "react-icons/fa";
+import { FaSync, FaPaperPlane, FaListAlt, FaAddressBook, FaUserCircle, FaExclamationCircle } from "react-icons/fa";
+import KYC from "../Assets/Images/KYC.png";
+import { Link } from "react-router-dom";
+
 
 const apiKey = "12345678";
 const formId = "12345678";
 
 function Changes() {
   const { logged, infoTkn, url } = useDataContext();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+
+  const [isVerificationModalOpen, setIsVerificationModalOpen] = useState(false);
+
+  const handleVerificationModalToggle = () => {
+    setIsVerificationModalOpen(!isVerificationModalOpen);
+  };
 
   // States for the user
   const [user, setUser] = useState({});
@@ -33,7 +47,7 @@ function Changes() {
   const [fifthModalOpen, setFifthModalOpen] = useState(false);
   const [secondModalOpen, setSecondModalOpen] = useState(false);
 
-  
+
   const toggle = () => setModal(!modal);
 
   const toggleModal = useCallback(() => {
@@ -251,8 +265,189 @@ function Changes() {
   }, [fetchCurrencyData, fetchDataUser]);
 
   return (
-    <div>Changes</div>
+    <div className="main-container">
+      <div className="changes-container">
+
+        {/* JOSE ACORDATE QUE ESTAS ALERTAS VA A DEPENDER DEL ESTADO SI ESTA EL USUARIO EN E O R LE SALDRA UNA ALERTA U OTRA*/}
+
+        {/* Alerta de usuario no verificado */}
+        <div className="alert-banner" onClick={handleModalToggle}>
+          <div className="alert-content">
+            <span className="alert-icon">
+              <FaExclamationCircle />
+            </span>
+            <span>Usuario no verificado. Haz clic para verificarte.</span>
+          </div>
+        </div>
+
+        {/* Alerta de usuario en espera */}
+        <div
+          className="alert-banner1 verification-alert"
+          onClick={handleVerificationModalToggle}
+        >
+          <div className="alert-content">
+            <FaExclamationCircle className="alert-icon" />
+            <span>
+              Estás en proceso de verificación. Haz clic aquí para completar tu KYC.
+            </span>
+          </div>
+        </div>
+
+        {/* Modal  Obtener Enlace*/}
+        {isModalOpen && (
+          <div className="modal-overlay" onClick={handleModalToggle}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <img src={KYC} className="modal-image" />
+              <h2>Verifica tu Identidad</h2>
+              <p>
+                Para utilizar la plataforma de DivitiaCambios, debes verificar tu
+                identidad utilizando nuestro sistema KYC. Cumplimos con las
+                normativas ISO 27001 y GDPR para proteger tus datos y garantizar
+                su seguridad.
+              </p>
+              <div className="modal-buttons">
+                <button className="btn verify" onClick={() => alert("Verificar")}>
+                  Haz clic para verificarte
+                </button>
+                <button className="btn cancel" onClick={handleModalToggle}>
+                  Regresar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+
+        {/* Modal de Proceso de Verificación */}
+        {isVerificationModalOpen && (
+          <div
+            className="modal-overlay"
+            onClick={handleVerificationModalToggle}
+          >
+            <div
+              className="modal-content verification-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <FaExclamationCircle className="modal-warning-icon" />
+
+              <h2>Estás en Proceso de Verificación</h2>
+              <p>
+                Completa el proceso de verificación KYC para acceder a todas las
+                funcionalidades de la plataforma. Este procedimiento asegura la
+                protección de tus datos conforme a las normativas ISO 27001 y
+                GDPR.
+              </p>
+              <div className="modal-buttons">
+                <button
+                  className="btn verify"
+                  onClick={() => alert("Redirigiendo a KYC")}
+                >
+                  Completa tu KYC
+                </button>
+                <button
+                  className="btn cancel"
+                  onClick={handleVerificationModalToggle}
+                >
+                  Regresar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+
+        {/* Sección de bienvenida */}
+        <section className="welcome-section">
+          <div className="profile-icon">
+            <FaUserCircle />
+          </div>
+          <div className="welcome-text">
+            <h2>Bienvenido, Usuario</h2>
+          </div>
+        </section>
+
+        {/* Saldo de la billetera */}
+        <header className="wallet-header">
+          <h2>Saldo de la Billetera</h2>
+          <div className="balances">
+            <div className="balance">
+              <span className="currency">€</span>
+              <span className="amount">120.50</span>
+            </div>
+            <div className="balance">
+              <span className="currency">$</span>
+              <span className="amount">135.75</span>
+            </div>
+          </div>
+        </header>
+
+        {/* Botones de acción */}
+        <div className="action-buttons">
+          <button className="action-btn">
+            <FaSync /> Recargar
+          </button>
+          <button className="action-btn">
+            <FaPaperPlane /> Enviar
+          </button>
+          <button className="action-btn">
+           <FaListAlt /> Movimientos
+          </button>
+          <button className="action-btn">
+            <FaAddressBook /> Directorio
+          </button>
+        </div>
+
+        {/* Lista de transferencias */}
+        <section className="transactions">
+          <h3>Transferencias</h3>
+          <ul>
+            <li className="transaction">
+              <div className="details">
+                <span className="type">Recarga</span>
+                <span className="status approved">Aprobada</span>
+              </div>
+              <div className="amount">+ €50.00</div>
+            </li>
+            <li className="transaction">
+              <div className="details">
+                <span className="type">Remesa</span>
+                <span className="status pending">En espera</span>
+              </div>
+              <div className="amount">- $100.00</div>
+            </li>
+            <li className="transaction">
+              <div className="details">
+                <span className="type">Recarga</span>
+                <span className="status rejected">Rechazada</span>
+              </div>
+              <div className="amount">+ €20.00</div>
+            </li>
+          </ul>
+        </section>
+
+        {/* Tasa de cambio */}
+        <section className="exchange-rate">
+          <h3>Tasa de Cambio</h3>
+          <div className="rates">
+            <div className="rate">
+              <div className="rate-header">€ Euros</div>
+              <div className="rate-value">
+                <span className="symbol">1</span> → <span className="value">1.10</span>
+              </div>
+            </div>
+            <div className="rate">
+              <div className="rate-header">$ Dólares</div>
+              <div className="rate-value">
+                <span className="symbol">1</span> → <span className="value">1.05</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+
   )
 }
 
-export {Changes};
+export { Changes };
