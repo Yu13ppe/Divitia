@@ -3,6 +3,16 @@ import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import { useDataContext } from "../Context/dataContext";
 import { toast, ToastContainer } from "react-toastify";
+import {
+  Form,
+  FormGroup,
+  Input,
+  Button,
+  InputGroup,
+  InputGroupText,
+  FormFeedback,
+} from "reactstrap";
+import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
   const history = useHistory();
@@ -88,7 +98,88 @@ function Login() {
   };
   
   return (
-    <div>Login</div>
+    <div className="Login">
+      <div className="card">
+        <div className="login-content">
+          <Form onSubmit={handleSubmit}>
+            {/* <img src={LogoSimple} alt="Europa Cambios" width={100} /> */}
+
+            <FormGroup>
+              <InputGroup>
+                <InputGroupText>
+                  <FaUser />
+                </InputGroupText>
+                <Input
+                  type="text"
+                  id="user"
+                  name="user"
+                  value={user}
+                  placeholder="Correo"
+                  onChange={(e) => handleChange("user", e.target.value)}
+                  onBlur={() => setTouched((prev) => ({ ...prev, user: true }))}
+                  invalid={touched.user && !user}
+                />
+                <FormFeedback>
+                  {touched.user && !user ? "Este campo es obligatorio" : ""}
+                </FormFeedback>
+              </InputGroup>
+            </FormGroup>
+
+            <FormGroup>
+              <InputGroup>
+                <InputGroupText>
+                  <FaLock />
+                </InputGroupText>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  placeholder="Contraseña"
+                  value={password}
+                  onChange={(e) => handleChange("password", e.target.value)}
+                  onBlur={() =>
+                    setTouched((prev) => ({ ...prev, password: true }))
+                  }
+                  invalid={touched.password && password.length < 8}
+                />
+                {/* <InputGroupText onClick={togglePasswordVisibility}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </InputGroupText> */}
+                <FormFeedback>
+                  {touched.password && password.length < 8
+                    ? "La contraseña debe tener al menos 8 caracteres"
+                    : ""}
+                </FormFeedback>
+              </InputGroup>
+            </FormGroup>
+
+            {alertVisible && <div className="alert">{error}</div>}
+
+            <div className="text-center">
+              <Link className="font-italic isai5" to="/Recover">
+                Olvidé mi contraseña
+              </Link>
+              <Button type="submit" color="primary" className="btn" disabled={loading}>
+                {/* {loading ? <Oval height={20} width={20} color="#fff" /> : "INICIAR SESIÓN"} */}
+              </Button>
+              <Link className="font-italic isai5" to="/Register">
+                ¿Aún no tienes cuenta? Regístrate
+              </Link>
+            </div>
+          </Form>
+        </div>
+      </div>
+      <ToastContainer
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </div>
   )
 }
 

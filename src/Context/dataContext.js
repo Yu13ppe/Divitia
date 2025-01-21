@@ -6,7 +6,7 @@ export const DataContext = createContext();
 export function DataContextProvider(props) {
     const [logged, setLogged] = useLocalStorage('log', false);
     const [infoTkn, setInfoTkn] = useLocalStorage('tkn', '');
-    const url = 'url';
+    const url = 'https://divitiacambiosapi.up.railway.app';
     const value = {
         logged, setLogged,
         infoTkn, setInfoTkn,

@@ -7,123 +7,159 @@ $pending-color: #ff9800;
 $error-color: #f44336;
 
 .main-container {
-    background-color: #1e1e2f; // Fondo oscuro solo para esta página
-    min-height: 100vh; // Abarca toda la altura de la pantalla
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px; // Espaciado alrededor del contenido
-    box-sizing: border-box; // Incluir padding en el tamaño total
+  background-color: #1e1e2f; // Fondo oscuro solo para esta página
+  min-height: 100vh; // Abarca toda la altura de la pantalla
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; // Espaciado alrededor del contenido
+  box-sizing: border-box; // Incluir padding en el tamaño total
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Espacio entre el ícono y el texto */
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  /* Amarillo para que combine con el estilo general */
+  text-decoration: none;
+  /* Quitar el subrayado del enlace */
+  cursor: pointer;
+  margin-bottom: 20px;
+  /* Espacio debajo del botón */
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: lighten(#ffc107, 10%);
+    /* Un amarillo más claro al pasar el mouse */
   }
 
-  .back-button {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Espacio entre el ícono y el texto */
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff; /* Amarillo para que combine con el estilo general */
-    text-decoration: none; /* Quitar el subrayado del enlace */
-    cursor: pointer;
-    margin-bottom: 20px; /* Espacio debajo del botón */
-    transition: color 0.3s ease;
-  
-    &:hover {
-      color: lighten(#ffc107, 10%); /* Un amarillo más claro al pasar el mouse */
-    }
-  
-    .back-icon {
-      font-size: 1.2rem; /* Tamaño del ícono */
-    }
+  .back-icon {
+    font-size: 1.2rem;
+    /* Tamaño del ícono */
   }
-  
+}
+
 
 .movements-container {
 
-    background-color: $background-color;
-    color: $text-color;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 400px; // Limitar el ancho en pantallas grandes
-    width: 100%; // Ajustar al 100% en móviles
-    margin: 0 auto; // Centrar horizontalmente
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); // Sombra para resaltar el contenedor
-    font-family: 'Arial', sans-serif;
-  
-     @media (min-width: 768px) {
-      max-width: 600px; // Ancho aumentado en escritorio
-    }
-  
-    @media (min-width: 1024px) {
-      max-width: 800px; // Más ancho en pantallas muy grandes
-    }
-  
-    .movements-header {
-      text-align: center;
-      margin-bottom: 20px;
-  
-      h2 {
-        font-size: 1.5rem;
-        color: $text-color;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-      }
-    }
-  
-    .filter-buttons {
+  background-color: $background-color;
+  color: $text-color;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px; // Limitar el ancho en pantallas grandes
+  width: 100%; // Ajustar al 100% en móviles
+  margin: 0 auto; // Centrar horizontalmente
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); // Sombra para resaltar el contenedor
+  font-family: 'Arial', sans-serif;
+
+  @media (min-width: 768px) {
+    max-width: 600px; // Ancho aumentado en escritorio
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 800px; // Más ancho en pantallas muy grandes
+  }
+
+  .movements-header {
+    text-align: center;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.5rem;
+      color: $text-color;
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
       gap: 10px;
-      margin-bottom: 20px;
-  
-      .filter-btn {
-        flex: 1;
-        background-color: $card-background;
-        border: none;
-        color: $text-color;
-        padding: 10px;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        text-align: center;
-        transition: background-color 0.3s ease;
-  
-        &:hover {
-          background-color: lighten($card-background, 10%);
-        }
-  
-        &.active {
-          background-color: $highlight-color;
-          color: $background-color;
-        }
+    }
+  }
+
+  .filter-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .filter-btn {
+      flex: 1;
+      background-color: $card-background;
+      border: none;
+      color: $text-color;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: lighten($card-background, 10%);
+      }
+
+      &.active {
+        background-color: $highlight-color;
+        color: $background-color;
       }
     }
-  
-    .transactions {
-        ul {
-          list-style: none;
-          padding: 0;
-      
-          .transaction {
-            background-color: #29293d;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer; /* Indica que es clicable */
-            position: relative; /* Para la barra de color */
-            transition: background-color 0.3s ease;
-      
-            &:hover {
-              background-color: #3b3b56; /* Fondo más claro al pasar el mouse */
+  }
+
+  .transactions {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      .transaction {
+        background-color: #29293d;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        /* Indica que es clicable */
+        position: relative;
+        /* Para la barra de color */
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #3b3b56;
+          /* Fondo más claro al pasar el mouse */
+        }
+
+        /* Barra de color a la izquierda */
+
+
+        .details {
+          display: flex;
+          align-items: center;
+          /* Alinea texto horizontalmente */
+
+          .type {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            /* Espacio entre tipo y estado */
+          }
+
+          .status {
+            font-size: 0.8rem;
+
+            &.approved {
+              color: $success-color;
             }
-      
-            /* Barra de color a la izquierda */
+            &.pending {
+              color: $pending-color;
+            }
+            &.rejected {
+              color: $error-color;
+            }
+
             &::before {
               content: "";
               width: 5px;
@@ -132,55 +168,28 @@ $error-color: #f44336;
               position: absolute;
               top: 0;
               left: 0;
-      
-              /* Color según el estado */
-              background-color: #4caf50; /* Aprobada (por defecto) */
-      
-              /* Cambia el color dinámicamente */
-              &.approved {
-                background-color: #4caf50; /* Verde */
-              }
-              &.pending {
-                background-color: #ff9800; /* Naranja */
-              }
-              &.rejected {
-                background-color: #f44336; /* Rojo */
-              }
             }
-      
-            .details {
-              display: flex;
-              align-items: center; /* Alinea texto horizontalmente */
-      
-              .type {
-                font-weight: bold;
-                font-size: 0.9rem;
-                margin-right: 10px; /* Espacio entre tipo y estado */
-              }
-      
-              .status {
-                font-size: 0.8rem;
-      
-                &.approved {
-                  color: #4caf50;
-                }
-                &.pending {
-                  color: #ff9800;
-                }
-                &.rejected {
-                  color: #f44336;
-                }
-              }
+          
+            &.approved::before {
+              background-color: #4caf50; /* Verde */
             }
-      
-            .amount {
-              font-size: 1rem;
-              font-weight: bold;
+            &.pending::before {
+              background-color: #ff9800; /* Naranja */
+            }
+            &.rejected::before {
+              background-color: #f44336; /* Rojo */
             }
           }
+
+        }
+
+        .amount {
+          font-size: 1rem;
+          font-weight: bold;
         }
       }
-      
-      
+    }
   }
-  
+
+
+}

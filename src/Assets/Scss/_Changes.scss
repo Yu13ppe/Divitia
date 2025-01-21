@@ -265,30 +265,6 @@ $error-color: #f44336;
         background-color: #3b3b56; /* Fondo más claro al pasar el mouse */
       }
 
-      &::before {
-        content: "";
-        width: 5px;
-        height: 100%;
-        border-radius: 4px 0 0 4px;
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        /* Color según el estado */
-        background-color: #4caf50; /* Aprobada (por defecto) */
-
-        /* Cambia el color dinámicamente */
-        &.approved {
-          background-color: #4caf50; /* Verde */
-        }
-        &.pending {
-          background-color: #ff9800; /* Naranja */
-        }
-        &.rejected {
-          background-color: #f44336; /* Rojo */
-        }
-      }
-
         .details {
           display: flex;
           flex-direction: column;
@@ -310,6 +286,26 @@ $error-color: #f44336;
             }
             &.rejected {
               color: $error-color;
+            }
+
+            &::before {
+              content: "";
+              width: 5px;
+              height: 100%;
+              border-radius: 4px 0 0 4px;
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+          
+            &.approved::before {
+              background-color: #4caf50; /* Verde */
+            }
+            &.pending::before {
+              background-color: #ff9800; /* Naranja */
+            }
+            &.rejected::before {
+              background-color: #f44336; /* Rojo */
             }
           }
         }
