@@ -1,0 +1,160 @@
+.recover-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1e1e2f;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .recover-card {
+    background-color: #29293d;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease;
+  
+    .logo {
+        width: 150px;
+        margin-bottom: 20px;
+      }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #ffc107;
+    }
+  
+    .back-link {
+      text-align: left;
+      margin-bottom: 20px;
+  
+      a {
+        color: #ffc107;
+        font-size: 0.9rem;
+        text-decoration: none;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+  
+        svg {
+          margin-right: 5px;
+        }
+      }
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+  
+      .input-wrapper {
+        position: relative;
+  
+        .input-icon {
+          position: absolute;
+          left: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #29293d;
+        }
+  
+        input {
+          width: 100%;
+          padding: 10px 10px 10px 35px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          background-color: #f0f0f0;
+          color: #000;
+          font-size: 0.9rem;
+  
+          &.input-error {
+            border-color: #f44336;
+          }
+        }
+  
+        .toggle-password {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none;
+          border: none;
+          color: #29293d;
+          cursor: pointer;
+        }
+      }
+  
+      .error-text {
+        font-size: 0.8rem;
+        color: #f44336;
+        margin-top: 5px;
+      }
+    }
+  
+    .recover-button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ffc107;
+      color: #1e1e2f;
+      font-size: 1rem;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+  
+      &:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+      }
+  
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .recover-card {
+      padding: 15px; // Más compacto en dispositivos muy pequeños
+      max-width: 100%; // Usar todo el ancho disponible
+      border-radius: 8px; // Bordes más pequeños
+    }
+  
+    h2 {
+      font-size: 1.2rem; // Título más compacto
+    }
+  
+    .form-group {
+      margin-bottom: 8px; // Menos espacio entre campos
+    }
+  
+    .recover-button {
+      font-size: 0.85rem; // Botón más pequeño
+      padding: 6px; // Reducir padding del botón
+    }
+  }

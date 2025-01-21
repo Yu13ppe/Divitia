@@ -1,34 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
-import { useDataContext } from "../Context/dataContext";
 import { toast, ToastContainer } from "react-toastify";
-import {
-  Form,
-  FormGroup,
-  Input,
-  Button,
-  InputGroup,
-  InputGroupText,
-  FormFeedback,
-} from "reactstrap";
+import { useDataContext } from "../Context/dataContext";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import Logo from "../Assets/Images/Logo.png";
 
 function Login() {
   const history = useHistory();
-  const { setLogged, setInfoTkn, url } = useDataContext();
+  const { setLogged, setInfoTkn, url } = useDataContext(); // Incluido el DataContext
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [attemps, setAttemps] = useState(3);
-  const [tkn, setTkn] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
   const [touched, setTouched] = useState({
     user: false,
     password: false,
   });
-  const [loading, setLoading] = useState(false); // Estado para la carga
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async (email, password) => {
     try {
@@ -36,29 +27,16 @@ function Login() {
         `${url}/Auth/login/${email}/${password}`
       );
       setInfoTkn(response.data.data.access_token);
-      const response2 = await axios.get(
-        `${url}/Auth/findByToken/${response.data.data.access_token}`
-      );
-      setTkn(response2.data);
       setLogged(true);
-      history.push({
-        pathname: "/Changes",
-        state: {
-          user: tkn,
-        },
-      });
-      return true;
+      history.push("/Changes");
     } catch (error) {
-      toast.error(
-        "Ocurrió un error durante el inicio de sesión. Por favor, verifica los datos e intenta nuevamente."
-      );
-      return false;
+      toast.error("Ocurrió un error. Verifica tus datos e intenta nuevamente.");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Inicia el estado de carga
+    setLoading(true);
 
     try {
       const success = await fetchData(user, password);
@@ -72,14 +50,14 @@ function Login() {
         setAttemps(0);
       } else {
         setAttemps(attemps - 1);
-        const errorMessage = `Correo o contraseña incorrectos. Inténtalo de nuevo. Intentos restantes: ${
+        const errorMessage = `Correo o contraseña incorrectos. Intentos restantes: ${
           attemps - 1
         }`;
         setError(errorMessage);
         setAlertVisible(true);
       }
     } finally {
-      setLoading(false); // Finaliza el estado de carga
+      setLoading(false);
     }
   };
 
@@ -96,91 +74,94 @@ function Login() {
     }
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
-  
+
   return (
-    <div className="Login">
-      <div className="card">
-        <div className="login-content">
-          <Form onSubmit={handleSubmit}>
-            {/* <img src={LogoSimple} alt="Europa Cambios" width={100} /> */}
+    <div className="login-container">
+      <div className="login-card">
+        <img src={Logo} alt="Logo" className="logo" />
 
-            <FormGroup>
-              <InputGroup>
-                <InputGroupText>
-                  <FaUser />
-                </InputGroupText>
-                <Input
-                  type="text"
-                  id="user"
-                  name="user"
-                  value={user}
-                  placeholder="Correo"
-                  onChange={(e) => handleChange("user", e.target.value)}
-                  onBlur={() => setTouched((prev) => ({ ...prev, user: true }))}
-                  invalid={touched.user && !user}
-                />
-                <FormFeedback>
-                  {touched.user && !user ? "Este campo es obligatorio" : ""}
-                </FormFeedback>
-              </InputGroup>
-            </FormGroup>
-
-            <FormGroup>
-              <InputGroup>
-                <InputGroupText>
-                  <FaLock />
-                </InputGroupText>
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  placeholder="Contraseña"
-                  value={password}
-                  onChange={(e) => handleChange("password", e.target.value)}
-                  onBlur={() =>
-                    setTouched((prev) => ({ ...prev, password: true }))
-                  }
-                  invalid={touched.password && password.length < 8}
-                />
-                {/* <InputGroupText onClick={togglePasswordVisibility}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </InputGroupText> */}
-                <FormFeedback>
-                  {touched.password && password.length < 8
-                    ? "La contraseña debe tener al menos 8 caracteres"
-                    : ""}
-                </FormFeedback>
-              </InputGroup>
-            </FormGroup>
-
-            {alertVisible && <div className="alert">{error}</div>}
-
-            <div className="text-center">
-              <Link className="font-italic isai5" to="/Recover">
-                Olvidé mi contraseña
-              </Link>
-              <Button type="submit" color="primary" className="btn" disabled={loading}>
-                {/* {loading ? <Oval height={20} width={20} color="#fff" /> : "INICIAR SESIÓN"} */}
-              </Button>
-              <Link className="font-italic isai5" to="/Register">
-                ¿Aún no tienes cuenta? Regístrate
-              </Link>
+        {alertVisible && (
+            <div className="alert-modern">
+              <span className="alert-text">{error}</span>
             </div>
-          </Form>
+          )}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="user">Correo Electrónico</label>
+            <div className="input-wrapper">
+              <FaUser className="input-icon" />
+              <input
+                type="text"
+                id="user"
+                name="user"
+                value={user}
+                placeholder="Correo"
+                onChange={(e) => handleChange("user", e.target.value)}
+                onBlur={() =>
+                  setTouched((prev) => ({ ...prev, user: true }))
+                }
+                className={touched.user && !user ? "input-error" : ""}
+              />
+            </div>
+            {touched.user && !user && (
+              <span className="error-text">Este campo es obligatorio</span>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Contraseña</label>
+            <div className="input-wrapper">
+              <FaLock className="input-icon" />
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={password}
+                placeholder="Contraseña"
+                onChange={(e) => handleChange("password", e.target.value)}
+                onBlur={() =>
+                  setTouched((prev) => ({ ...prev, password: true }))
+                }
+                className={
+                  touched.password && password.length < 8 ? "input-error" : ""
+                }
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+            {touched.password && password.length < 8 && (
+              <span className="error-text">
+                La contraseña debe tener al menos 8 caracteres
+              </span>
+            )}
+          </div>
+
+         
+
+          <button
+            type="submit"
+            className="login-button"
+            disabled={loading}
+          >
+            {loading ? "Cargando..." : "Iniciar Sesión"}
+          </button>
+
+          <Link to="/Register" className="register-button">
+            Regístrate
+          </Link>
+        </form>
+        <div className="extra-links">
+          <Link to="/Recover">¿Olvidaste tu contraseña?</Link>
         </div>
       </div>
-      <ToastContainer
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer />
     </div>
-  )
+  );
 }
 
-export {Login}
+export { Login };

@@ -1,67 +1,109 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { FaArrowLeft, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { useDataContext } from "../Context/dataContext";
-import { toast, ToastContainer } from "react-toastify"; 
+import { toast, ToastContainer } from "react-toastify";
+import Logo from "../Assets/Images/Logo.png";
+
 
 function RecoverUpdate() {
   const history = useHistory();
-  const [userEmail, setUserEmail] = useState({});
-  const [use_password, setUse_Password] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const { url } = useDataContext();
-  const { id, email } = useParams();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [touched, setTouched] = useState({
+    password: false,
+    confirmPassword: false,
+  });
 
-    if (use_password.length < 8) {
-      toast.error("La contraseña debe contener al menos 8 caracteres.");
-      return;
-    }
-    if (confirmPassword !== use_password) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
       toast.error("Las contraseñas no coinciden.");
       return;
     }
-    if (email !== userEmail.use_email || parseInt(id) !== userEmail.use_id) {
-      toast.error("Los datos no coinciden.");
-      return;
-    }
 
     try {
-      setLoading(true);
-      await axios.put(`${url}/Users/PasswordRecovery/${id}`, {
-        use_password,
-      });
-      toast.success("Contraseña recuperada con éxito. Redirigiendo al login...");
-      setTimeout(() => {
-        history.push("/Login");
-      }, 2000);
+      // Aquí debes pasar el token de recuperación y la nueva contraseña al backend
+      await axios.post(`${url}/Auth/recoverUpdate`, { password });
+      toast.success("¡Contraseña actualizada con éxito!");
+      setTimeout(() => history.push("/Login"), 2000);
     } catch (error) {
-      console.error(error);
-      toast.error("Error al recuperar la contraseña. Por favor, intenta nuevamente.");
-    } finally {
-      setLoading(false);
+      console.error("Error:", error);
+      toast.error("Ocurrió un error. Por favor, intenta de nuevo.");
     }
   };
 
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await axios.get(`${url}/Users/email/${email}`);
-      setUserEmail(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [email, url]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-  
   return (
-    <div>RecoverUpdate</div>
-  )
+    <div className="recover-container">
+      <div className="recover-card">
+        <div className="back-link">
+          <Link to="/Login">
+            <FaArrowLeft /> Volver
+          </Link>
+        </div>
+        <h2>Actualizar Contraseña</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <div className="input-wrapper">
+              <FaLock className="input-icon" />
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Nueva Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
+                className={touched.password && password.length < 8 ? "input-error" : ""}
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+            {touched.password && password.length < 8 && (
+              <span className="error-text">La contraseña debe tener al menos 8 caracteres</span>
+            )}
+          </div>
+          <div className="form-group">
+            <div className="input-wrapper">
+              <FaLock className="input-icon" />
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirmar Contraseña"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                onBlur={() => setTouched((prev) => ({ ...prev, confirmPassword: true }))}
+                className={
+                  touched.confirmPassword && confirmPassword !== password ? "input-error" : ""
+                }
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+            {touched.confirmPassword && confirmPassword !== password && (
+              <span className="error-text">Las contraseñas no coinciden</span>
+            )}
+          </div>
+          <button type="submit" className="recover-button">
+            Actualizar Contraseña
+          </button>
+        </form>
+      </div>
+      <ToastContainer />
+    </div>
+  );
 }
 
-export {RecoverUpdate}
+export { RecoverUpdate };

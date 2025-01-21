@@ -1,0 +1,238 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1e1e2f;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .login-card {
+    background-color: #29293d;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  
+     /* Animación */
+  animation: slideUp 0.6s ease-out;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+  
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
+    }
+  
+    h2 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+  
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+  
+    .input-wrapper {
+      position: relative;
+  
+      .input-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #29293d;
+      }
+  
+      input {
+        width: 100%;
+        padding: 10px 10px 10px 35px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #000;
+        font-size: 0.9rem;
+      }
+  
+      .input-error {
+        border-color: #f44336;
+      }
+    }
+  
+    .error-text {
+      font-size: 0.8rem;
+      color: #f44336;
+      margin-top: 5px;
+      display: block;
+    }
+  
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #29293d;
+      cursor: pointer;
+    }
+  }
+  
+  .alert-modern {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #e7776f;
+    color: #fff;
+    font-size: 0.9rem;
+    text-align: center;
+  
+    .alert-text {
+      font-weight: bold;
+    }
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffc107;
+    color: #1e1e2f;
+    font-size: 1rem;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+  
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+  
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+  
+  .register-button {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 20px;
+    background-color: #eaf0ea;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: lighten(#dde6dd, 10%);
+    }
+  }
+  
+  .extra-links {
+    margin-top: 20px;
+  
+    a {
+      display: block;
+      color: #ffc107;
+      font-size: 0.9rem;
+      margin: 5px 0;
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  
+
+  @media (max-width: 768px) {
+    .login-container {
+      padding: 20px;
+    }
+  
+    .login-card {
+      padding: 20px;
+      max-width: 90%;
+    }
+  
+    .form-group input {
+      font-size: 0.9rem;
+    }
+  
+    .login-button {
+      font-size: 0.9rem;
+      padding: 8px;
+    }
+  
+    .register-button {
+      font-size: 0.8rem;
+      padding: 6px 15px;
+    }
+  
+    .extra-links a {
+      font-size: 0.85rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .login-card {
+      padding: 15px;
+    }
+  
+    .form-group input {
+      font-size: 0.8rem;
+      padding: 8px 10px;
+    }
+  
+    .login-button {
+      font-size: 0.8rem;
+      padding: 7px;
+    }
+  
+    .register-button {
+      font-size: 0.75rem;
+      padding: 5px 10px;
+    }
+  
+    .extra-links a {
+      font-size: 0.75rem;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  
