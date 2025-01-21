@@ -316,26 +316,18 @@ function Changes() {
 
           {/* Botones de acción */}
           <div className="action-buttons">
-            <a className="action-btn" href="/Recharge">
-              <button className="action-btn">
-                <FaSync /> Recargar
-              </button>
-            </a>
-            <a className="action-btn" href="/SendMoney">
-              <button className="action-btn">
-                <FaPaperPlane /> Enviar
-              </button>
-            </a>
-            <a className="action-btn" href="/Movements">
-              <button className="action-btn">
-                <FaListAlt /> Movimientos
-              </button>
-            </a>
-            <a className="action-btn" href="/Directory">
-              <button className="action-btn">
-                <FaAddressBook /> Directorio
-              </button>
-            </a>
+            <button className="action-btn" onClick={alert("Modal al WhatsApp")}>
+              <FaSync /> Recargar
+            </button>
+            <button className="action-btn" onClick={alert("Modal al WhatsApp")}>
+              <FaPaperPlane /> Enviar
+            </button>
+            <button className="action-btn" onClick={alert("Modal al WhatsApp")}>
+              <FaListAlt /> Movimientos
+            </button>
+            <button className="action-btn" onClick={alert("Modal al WhatsApp")}>
+              <FaAddressBook /> Directorio
+            </button>
           </div>
           <br />
 
