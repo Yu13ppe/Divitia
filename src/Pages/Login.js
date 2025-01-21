@@ -81,10 +81,10 @@ function Login() {
         <img src={Logo} alt="Logo" className="logo" />
 
         {alertVisible && (
-            <div className="alert-modern">
-              <span className="alert-text">{error}</span>
-            </div>
-          )}
+          <div className="alert-modern">
+            <span className="alert-text">{error}</span>
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="user">Correo Electrónico</label>
@@ -97,9 +97,7 @@ function Login() {
                 value={user}
                 placeholder="Correo"
                 onChange={(e) => handleChange("user", e.target.value)}
-                onBlur={() =>
-                  setTouched((prev) => ({ ...prev, user: true }))
-                }
+                onBlur={() => setTouched((prev) => ({ ...prev, user: true }))}
                 className={touched.user && !user ? "input-error" : ""}
               />
             </div>
@@ -141,13 +139,7 @@ function Login() {
             )}
           </div>
 
-         
-
-          <button
-            type="submit"
-            className="login-button"
-            disabled={loading}
-          >
+          <button type="submit" className="login-button" disabled={loading}>
             {loading ? "Cargando..." : "Iniciar Sesión"}
           </button>
 

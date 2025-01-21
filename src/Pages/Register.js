@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, use } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import { useDataContext } from "../Context/dataContext";
@@ -10,6 +10,7 @@ function Register() {
   const { url } = useDataContext();
 
   const [use_name, setUse_name] = useState("");
+  const [use_lastName, setUse_lastName] = useState("");
   const [use_email, setUse_email] = useState("");
   const [use_password, setUse_password] = useState("");
   const [use_confirm, setUse_confirm] = useState("");
@@ -22,7 +23,14 @@ function Register() {
   const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = useCallback(() => {
-    if (!use_name || !use_email || !use_password || !use_confirm || !phoneNumber) {
+    if (
+      !use_name ||
+      !use_lastName ||
+      !use_email ||
+      !use_password ||
+      !use_confirm ||
+      !phoneNumber
+    ) {
       return false;
     }
     if (use_password !== use_confirm) {
@@ -32,7 +40,16 @@ function Register() {
       return false;
     }
     return true;
-  }, [use_name, use_email, use_password, use_confirm, phoneNumber, termsAccepted, privacyAccepted]);
+  }, [
+    use_name,
+    use_lastName,
+    use_email,
+    use_password,
+    use_confirm,
+    phoneNumber,
+    termsAccepted,
+    privacyAccepted,
+  ]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,9 +62,13 @@ function Register() {
     try {
       await axios.post(`${url}/Auth/register`, {
         use_name,
+        use_lastName,
+        use_dni: "",
         use_email,
         use_password,
-        phone: `${phonePrefix}${phoneNumber}`,
+        use_verif: "N",
+        use_img: "",
+        use_phone: `${phonePrefix}${phoneNumber}`,
       });
 
       toast.success("¡Registro exitoso! Redirigiendo...");
@@ -72,9 +93,23 @@ function Register() {
               </span>
               <input
                 type="text"
-                placeholder="Nombre Completo"
+                placeholder="Nombre"
                 value={use_name}
                 onChange={(e) => setUse_name(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <div className="input-wrapper">
+              <span className="input-icon">
+                <FaUser />
+              </span>
+              <input
+                type="text"
+                placeholder="Apellido"
+                value={use_lastName}
+                onChange={(e) => setUse_lastName(e.target.value)}
               />
             </div>
           </div>
@@ -165,26 +200,27 @@ function Register() {
 
           {/* Políticas de Privacidad */}
           <div className="form-group">
-          <div className="checkbox-group">
-  <input
-    type="checkbox"
-    id="terms"
-    checked={termsAccepted}
-    onChange={() => setTermsAccepted(!termsAccepted)}
-  />
-  <label htmlFor="terms">Acepto los términos y condiciones</label>
-</div>
+            <div className="checkbox-group">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={termsAccepted}
+                onChange={() => setTermsAccepted(!termsAccepted)}
+              />
+              <label htmlFor="terms">Acepto los términos y condiciones</label>
+            </div>
 
-<div className="checkbox-group">
-  <input
-    type="checkbox"
-    id="privacy"
-    checked={privacyAccepted}
-    onChange={() => setPrivacyAccepted(!privacyAccepted)}
-  />
-  <label htmlFor="privacy">Acepto las políticas de privacidad</label>
-</div>
-
+            <div className="checkbox-group">
+              <input
+                type="checkbox"
+                id="privacy"
+                checked={privacyAccepted}
+                onChange={() => setPrivacyAccepted(!privacyAccepted)}
+              />
+              <label htmlFor="privacy">
+                Acepto las políticas de privacidad
+              </label>
+            </div>
           </div>
 
           {/* Botón de Registro */}

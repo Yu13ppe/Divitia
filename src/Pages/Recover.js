@@ -21,7 +21,7 @@ function Recover() {
       return;
     }
     try {
-      await axios.post(`${url}/Auth/recover`, { email });
+      await axios.post(`${url}/Mailer/emailRecovery/${email}`);
       toast.success("¡Correo de recuperación enviado! Revisa tu bandeja de entrada.");
       setTimeout(() => history.push("/Login"), 2000);
     } catch (error) {
