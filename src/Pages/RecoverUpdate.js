@@ -4,7 +4,7 @@ import { FaArrowLeft, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { useDataContext } from "../Context/dataContext";
 import { toast, ToastContainer } from "react-toastify";
-import Logo from "../Assets/Images/Logo.png";
+
 
 function RecoverUpdate() {
   const history = useHistory();

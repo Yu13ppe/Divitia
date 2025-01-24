@@ -1,0 +1,585 @@
+.home-container {
+    background-color: #1e1e2f;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+  
+    /* Sección 1: Encabezado */
+    .header {
+        position: relative; // Para overlay oscuro
+        background: url('../Images/global-map.jpg') center/cover no-repeat; // Ruta corregida
+        color: #fff;
+        display: flex;
+        justify-content: space-between; // Distribuye logo/eslogan y calculadora
+        align-items: center;
+        padding: 200px; // Espaciado interno
+        height: 90vh; // Ocupa el 90% del viewport
+        font-family: 'Arial', sans-serif;
+        background-attachment: fixed; // Parallax activado
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.6); // Overlay oscuro
+          z-index: 1;
+        }
+      
+        .logo-slogan {
+            position: relative;
+            z-index: 2; // Asegura que esté por encima del fondo
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 40%; // Ajusta el tamaño para darle más espacio a la derecha
+            margin-left: 50px; // Espaciado respecto a la calculadora
+            color: #ffc107; // Amarillo para las letras principales
+          
+            .logo {
+              margin-bottom: 30px;
+              display: flex;
+              justify-content: center;
+              width: 100%;
+          
+              img {
+                max-width: 180px; // Tamaño del logo ajustado
+              }
+            }
+          
+            h1 {
+              font-family: 'Poppins', sans-serif; // Tipografía moderna
+              font-size: 3rem; // Tamaño visualmente atractivo
+              margin: 0 0 15px 0;
+              font-weight: 700;
+              line-height: 1.2;
+          
+              .highlight {
+                color: #ffc107; // Amarillo del logo
+                font-weight: 700;
+                position: relative;
+          
+                &::after {
+                  content: '';
+                  position: absolute;
+                  left: 0;
+                  bottom: -5px;
+                  width: 100%;
+                  height: 5px;
+                  background: #ffc107; // Amarillo subrayado
+                  opacity: 0.8;
+                  z-index: -1;
+                  animation: slideUnderline 3s ease-in-out infinite; // Animación de desplazamiento
+                }
+              }
+            }
+          
+            p {
+              font-size: 1.4rem;
+              font-weight: 400;
+              line-height: 1.5;
+              color: #ccc; // Texto del eslogan más claro
+              margin: 10px 0 30px; // Espaciado con el botón
+            }
+          
+            .register-button {
+              padding: 12px 35px;
+              font-size: 1rem;
+              font-weight: bold;
+              color: #fff;
+              background: linear-gradient(135deg, #ffc107, #d4a107);
+              border: none;
+              border-radius: 25px;
+              cursor: pointer;
+              position: relative;
+              overflow: hidden;
+              transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+          
+              &:hover {
+                transform: translateY(-2px);
+              }
+          
+              &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 150%;
+                height: 150%;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                animation: ripple 1.5s infinite;
+              }
+          
+              @keyframes ripple {
+                0% {
+                  transform: translate(-50%, -50%) scale(0.2);
+                  opacity: 0.8;
+                }
+                100% {
+                  transform: translate(-50%, -50%) scale(1.5);
+                  opacity: 0;
+                }
+              }
+          
+              &:hover::before {
+                background: rgba(255, 255, 255, 0.3);
+              }
+            }
+          }
+          
+          @keyframes slideUnderline {
+            0% {
+              left: 0;
+            }
+            50% {
+              left: 100%;
+              transform: translateX(-100%);
+            }
+            100% {
+              left: 0;
+            }
+          }
+          
+      
+       
+      }
+
+
+      .calculator-container {
+        position: relative;
+        z-index: 2;
+        background-color: #29293d;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  
+        .exchange-rate-header {
+          background-color: #ffc107;
+          padding: 15px;
+          border-radius: 8px 8px 0 0;
+          margin-bottom: 20px;
+  
+          h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #1e1e2f;
+          }
+  
+          p {
+            margin: 5px 0 0;
+            font-size: 1rem;
+            color: #1e1e2f;
+  
+            span {
+              font-weight: bold;
+            }
+          }
+        }
+  
+        .calculator-form {
+          .form-group {
+            margin-bottom: 15px;
+  
+            label {
+              display: block;
+              font-size: 0.9rem;
+              color: #ccc;
+              margin-bottom: 5px;
+            }
+  
+            .input-wrapper {
+              display: flex;
+              align-items: center;
+              background-color: #1e1e2f;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+  
+              input {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                background-color: #1e1e2f;
+                color: #fff;
+                font-size: 1rem;
+  
+                &:focus {
+                  outline: none;
+                }
+              }
+  
+              select {
+                background-color: #29293d;
+                color: #fff;
+                border: none;
+                padding: 10px;
+                border-left: 1px solid #ccc;
+                font-size: 0.9rem;
+                cursor: pointer;
+  
+                &:focus {
+                  outline: none;
+                }
+              }
+            }
+          }
+  
+          .summary {
+            margin-top: 15px;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+  
+            .summary-item {
+              display: flex;
+              justify-content: space-between;
+              font-size: 0.9rem;
+              color: #ccc;
+  
+              span:last-child {
+                color: #ffc107;
+                font-weight: bold;
+              }
+            }
+          }
+  
+          .submit-button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: #ffc107;
+            color: #1e1e2f;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+  
+            &:hover {
+              background-color: lighten(#ffc107, 10%);
+            }
+          }
+        }
+      }
+      
+      .calculator-container {
+        position: relative;
+        z-index: 2;
+        background-color: #29293d;
+        padding: 20px;
+        border-radius: 20px;
+        width: 900px !important; 
+         // Ajusta la anchura
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      
+        .exchange-rate-header {
+          background-color: #ffc107;
+          padding: 15px;
+          border-radius: 8px 8px 0 0;
+          margin-bottom: 20px;
+      
+          .flag{
+            width: 5px; // Ajusta el tamaño de las banderas
+            height: 15px;
+            margin-right: 5px;
+          }
+          h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #1e1e2f;
+          }
+      
+          p {
+            margin: 5px 0 0;
+            font-size: 1rem;
+            color: #1e1e2f;
+      
+            span {
+              font-weight: bold;
+            }
+          }
+        }
+      
+        .calculator-form {
+          .form-group {
+            margin-bottom: 15px;
+      
+            .input-wrapper {
+              display: flex;
+              align-items: center;
+              background-color: #1e1e2f;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              overflow: hidden;
+      
+              input {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                background-color: #1e1e2f;
+                color: #fff;
+                font-size: 1rem;
+      
+                &:focus {
+                  outline: none;
+                }
+              }
+      
+              select {
+                background-color: #29293d;
+                color: #fff;
+                border: none;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                font-size: 0.9rem;
+                cursor: pointer;
+      
+                &:focus {
+                  outline: none;
+                }
+      
+                option {
+                  display: flex;
+                  align-items: center;
+                }
+              }
+      
+              img {
+                width: 20px; // Ajusta el tamaño de las banderas
+                height: 15px;
+                margin-right: 5px;
+              }
+            }
+          }
+      
+          .summary {
+            margin-top: 15px;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+      
+            .summary-item {
+              display: flex;
+              justify-content: space-between;
+              font-size: 0.9rem;
+              color: #ccc;
+      
+              span:last-child {
+                color: #ffc107;
+                font-weight: bold;
+              }
+            }
+          }
+      
+          .submit-button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: #ffc107;
+            color: #1e1e2f;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+      
+            &:hover {
+              background-color: lighten(#ffc107, 10%);
+            }
+          }
+        }
+      }
+      
+      
+  
+    /* Sección 3: Países a los que enviamos */
+    .countries {
+      padding: 50px 20px;
+      text-align: center;
+  
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        color: #ffc107;
+      }
+  
+      p {
+        font-size: 1rem;
+        color: #ccc;
+        margin-bottom: 20px;
+      }
+  
+      .map {
+        height: 300px;
+       // background: url('../Assets/Images/latin-america-map.jpg') center/cover no-repeat; /* Imagen alusiva */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+    }
+  
+    /* Sección 4: Nuestro Producto */
+    .product {
+      padding: 50px 20px;
+      background-color: #29293d;
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #ffc107;
+      }
+  
+      .features {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+  
+        .feature {
+          width: 45%;
+          text-align: center;
+          margin-bottom: 20px;
+  
+          .icon {
+            font-size: 2rem;
+            color: #ffc107;
+            margin-bottom: 10px;
+          }
+  
+          h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #fff;
+          }
+  
+          p {
+            color: #ccc;
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  
+    /* Sección 5: Beneficios */
+    .benefits {
+      padding: 50px 20px;
+  
+      h2 {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #ffc107;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          font-size: 1rem;
+          color: #ccc;
+  
+          .icon {
+            color: #4caf50;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  
+    /* Sección 6: Cómo enviar dinero */
+    .how-to-send {
+      padding: 50px 20px;
+      text-align: center;
+  
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #ffc107;
+      }
+  
+      ol {
+        list-style: decimal inside;
+        padding: 0;
+        margin: 0 auto;
+        max-width: 600px;
+        text-align: left;
+  
+        li {
+          margin-bottom: 10px;
+          font-size: 1rem;
+          color: #ccc;
+        }
+      }
+    }
+  
+    /* Sección 7: Testimonios */
+    .testimonials {
+      padding: 50px 20px;
+      text-align: center;
+  
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #ffc107;
+      }
+  
+      .testimonial {
+        margin-bottom: 20px;
+  
+        p {
+          font-size: 1rem;
+          font-style: italic;
+          color: #ccc;
+        }
+  
+        span {
+          display: block;
+          margin-top: 5px;
+          font-size: 0.9rem;
+          color: #fff;
+        }
+      }
+    }
+  
+    /* Footer */
+    .footer {
+      background-color: #29293d;
+      padding: 20px;
+      text-align: center;
+  
+      p {
+        margin: 0;
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+  
+      .login-link {
+        display: block;
+        margin-top: 10px;
+        color: #ffc107;
+        font-size: 1rem;
+        text-decoration: none;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  

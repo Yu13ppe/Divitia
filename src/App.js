@@ -11,11 +11,15 @@ import routes from './Config/routes';
 function App() {
   return (
     <React.Fragment>
+      
       <Router>
+      <NavBar />
+
         <Route
+        
           path="/"
           render={({ location }) => {
-     //       const isLoginRoute = location.pathname === "/Login" || location.pathname === "/Register" || location.pathname === "/Dashboard" || location.pathname === "/Admec";
+           const isLoginRoute = location.pathname === "/Login" || location.pathname === "/Register" || location.pathname === "/Dashboard" || location.pathname === "/Admec";
             return (
               <>
                 <Switch>
